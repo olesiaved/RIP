@@ -4,13 +4,14 @@ from Type_box import Type_box
 
 
 class Type_produit(object):
-    def __init__(self, a):
-        self.___id = a
-        self.___s = None
-        self.___p = None
-        self.___htype = None
-        self.___ltype = None
-        self.___nbEmpileMax = None
-        self._type_box : Type_box = None
-    p=Type_box(1,2,3,4)
+    def __init__(self,id,s, p, h, l, nb):
+        self.id = id
+        self.s = s
+        self.p = p
+        self.htype = h
+        self.ltype = l
+        self.nbEmpileMax = nb
+        self.type_box : Type_box = None
+    def affichage(self):
+        print ("Type_produit", self.id, " ", self.s, " ", self.p, " ", self.htype, " ", self.ltype, " ", self.nbEmpileMax)
     

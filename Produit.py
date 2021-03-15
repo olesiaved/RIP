@@ -15,4 +15,3 @@ class Produit(object):
         self._type : Type_produit = None
         """# @AssociationMultiplicity 1"""
 
-    p=Type_produit(1)
