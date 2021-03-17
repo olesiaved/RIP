@@ -22,7 +22,7 @@ class Production(object):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
             list_Type_produit.append(Type_produit(self._lecture_txt[i+1][0].replace("P",""), int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]),int(self._lecture_txt[i+1][4]), int(self._lecture_txt[i+1][5]) ))
-        return list_Type_produit
+        self.box_manager._listes_types_produit=list_Type_produit
 
 
 
@@ -41,17 +41,9 @@ class Production(object):
         pass
 
     def __init__(self):
-        self.___cout = 1
-        self._box_manager : Box_manager = None
+        self._cout = 1
+        self.box_manager=Box_manager()
         """# @AssociationMultiplicity 1"""
         self._schedule : Scheduling = None
         """# @AssociationMultiplicity 1"""
         self._lecture_txt=None
-
-if __name__ == '__main__':
-    pr=Production()
-    pr.Lecture_fichier()
-    list_Type_pr=pr.create_Type_produit()
-    print(len(list_Type_pr))
-    for Type in list_Type_pr:
-        print(Type.affichage())
