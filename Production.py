@@ -16,7 +16,7 @@ class Production(object):
         self.create_Type_produit()
     def Calcul_cout_delay(self, aCmd : Commande):
         pass
-
+    #une méthode qui s'occupe de la lecture du fichier txt. L'argument est un chemin relatif pour ceux fichier
     def Lecture_fichier(self,filename):
         production_list=[]
         with open(filename, newline='') as csvfile:
@@ -60,15 +60,25 @@ class Production(object):
 
     def Ecriture_fichier(self):
         pass
-
+    def Calcul_cout_retard(self):
+        k=0
+        m=self._schedule._liste_commandes
+        for i in m:
+            k=k+abs(i.dateReel-i.datePrevue)*i.penalite
+        self._cout+=k
     def Calcul_cout_box(self):
-        pass
+        k=0
+        for i in self._schedule._liste_commandes:
+            for j in range(len(self.box_manager._listes_types_produit)):
+                k=k+i.nbproduits[j]*self.box_manager._listes_types_produit[j].type_box.prix_box
+        self._cout=self._cout+k
+
 
     def Calcul_cout_conteneur(self):
         pass
 
     def __init__(self):
-        self._cout = 1
+        self._cout = 0
         self.box_manager=Box_manager()
         """# @AssociationMultiplicity 1"""
         self._schedule=Scheduling()
