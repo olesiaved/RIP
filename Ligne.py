@@ -11,6 +11,10 @@ class Ligne(object):
         self.___produit_en_Cours : Produit = None
         self.___dernier_Produit_fini : Produit = None
         self._listes_commandes = []
+
     def affichage(self):
         print ("Ligne", self.___numero)
+
+        for element in self._listes_commandes:
+            element.affichage()
 

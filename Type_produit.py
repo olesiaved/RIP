@@ -12,6 +12,7 @@ class Type_produit(object):
         self.ltype = l
         self.nbEmpileMax = nb
         self.type_box : Type_box = None
+
     def affichage(self):
         print ("Type_produit", self.id, " ", self.s, " ", self.p, " ", self.htype, " ", self.ltype, " ", self.nbEmpileMax)
     

@@ -6,17 +6,22 @@ from Commande import Commande
 from Type_produit import Type_produit
 from Ligne import Ligne
 from Type_box import Type_box
+from Produit import Produit
 
+#NEWNEWNEW
 class Production(object):
     def simulation_production(self,filename):
         self.Lecture_fichier(filename)
         self.create_Lignes()
-        self.create_Commandes()
         self.create_Type_box()
         self.create_Type_produit()
+        self.create_Commandes()
+
+
     def Calcul_cout_delay(self, aCmd : Commande):
         pass
     #une méthode qui s'occupe de la lecture du fichier txt. L'argument est un chemin relatif pour ceux fichier
+
     def Lecture_fichier(self,filename):
         production_list=[]
         with open(filename, newline='') as csvfile:
@@ -29,6 +34,8 @@ class Production(object):
         for i in range (int(self._lecture_txt[0][0])):
             list_Type_produit.append(Type_produit(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]),int(self._lecture_txt[i+1][4]), int(self._lecture_txt[i+1][5]) ))
         self.box_manager._listes_types_produit=list_Type_produit
+        self._schedule._listes_types_produit  =list_Type_produit
+
 
     def create_Commandes(self):
         list_Commande = []
@@ -40,7 +47,24 @@ class Production(object):
                 list_produit.append(int(self._lecture_txt[i+1][j]))
             list_Commande.append(Commande(self._lecture_txt[i + 1][0], int(self._lecture_txt[i + 1][1]),
                                           int(self._lecture_txt[i + 1][2]), int(self._lecture_txt[i + 1][3]), list_produit))
-        self._schedule._liste_commandes=list_Commande
+
+        self._schedule._liste_commandes = list_Commande
+
+        """COMMANDE créées avant cette ligne mais laissées vides (en terme de produit)
+        Commande remplie ci-dessous (grâce à la création de l'ensemble des produits composants de la commande):"""
+
+        for cc in range(len(self._schedule._liste_commandes)):
+
+            for aa in range(len(self.box_manager._listes_types_produit)) :
+
+                for bb in range(self._schedule._liste_commandes[cc]._list_prod[aa]) :
+
+                    self._schedule._liste_commandes[cc]._liste_produits_afaire.append(Produit(self._schedule._liste_commandes[cc]._id,(self.box_manager._listes_types_produit[aa])))
+
+
+
+
+
 
     def create_Type_box(self):
         list_Type_box=[]
