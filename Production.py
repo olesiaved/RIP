@@ -14,17 +14,25 @@ class Production(object):
 
     def Lecture_fichier(self):
         production_list=[]
-        with open(r"C:\Users\lesya\OneDrive\Documents\Etudes\s2\RIP\Donnee.txt", newline='') as csvfile:
+        dir = os.path.dirname(__file__)
+        filename = os.path.join(dir, './Donnee1.txt')
+        with open(filename, newline='') as csvfile:
             for line in csvfile:
                 production_list.append(line.strip().split())
             self._lecture_txt=production_list
     def create_Type_produit(self):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
-            list_Type_produit.append(Type_produit(self._lecture_txt[i+1][0].replace("P",""), int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]),int(self._lecture_txt[i+1][4]), int(self._lecture_txt[i+1][5]) ))
+            list_Type_produit.append(Type_produit(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]),int(self._lecture_txt[i+1][4]), int(self._lecture_txt[i+1][5]) ))
         self.box_manager._listes_types_produit=list_Type_produit
-
-
+    def create_Type_box(self):
+        list_Type_box=[]
+        a=int(self._lecture_txt[0][0])
+        b=int(self._lecture_txt[0][1])
+        c=int(self._lecture_txt[0][3])
+        for i in range(a+b,a+b+c):
+            list_Type_box.append(Type_box(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]) ))
+        return list_Type_box
 
             
 
