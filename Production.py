@@ -35,8 +35,11 @@ class Production(object):
         a = int(self._lecture_txt[0][0])
         b = int(self._lecture_txt[0][1])
         for i in range(a, a + b):
+            list_produit=[]
+            for j in range(4,len(self._lecture_txt[i+1])):
+                list_produit.append(int(self._lecture_txt[i+1][j]))
             list_Commande.append(Commande(self._lecture_txt[i + 1][0], int(self._lecture_txt[i + 1][1]),
-                                          int(self._lecture_txt[i + 1][2]), int(self._lecture_txt[i + 1][3])))
+                                          int(self._lecture_txt[i + 1][2]), int(self._lecture_txt[i + 1][3]), list_produit))
         self._schedule._liste_commandes=list_Commande
 
     def create_Type_box(self):
