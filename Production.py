@@ -88,13 +88,13 @@ class Production(object):
         k=0
         m=self._schedule._liste_commandes
         for i in m:
-            k=k+abs(i.dateReel-i.datePrevue)*i.penalite
+            k=k+abs(i._dateReel-i._datePrevue)*i._penalite
         self._cout+=k
     def Calcul_cout_box(self):
         k=0
         for i in self._schedule._liste_commandes:
             for j in range(len(self.box_manager._listes_types_produit)):
-                k=k+i.nbproduits[j]*self.box_manager._listes_types_produit[j].type_box.prix_box
+                k=k+i._list_prod[j]*self.box_manager._listes_types_produit[j].type_box.prix_box
         self._cout=self._cout+k
 
 

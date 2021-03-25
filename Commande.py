@@ -9,9 +9,9 @@ class Commande(object):
     def __init__(self, id, stock, dP, p,list_prod):
         self._id = id
         self.___stockMin = stock
-        self.___datePrevue = dP
-        self.___penalite = p
-        self.___dateReel =None
+        self._datePrevue = dP
+        self._penalite = p
+        self._dateReel =None
         self._list_prod = list_prod
         self.___num_ligne : int = None
         self._liste_produits_afaire = []
