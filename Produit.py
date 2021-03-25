@@ -8,13 +8,13 @@ class Produit(object):
         pass
 
     def __init__(self,id_commande,Type_produit):
-        self.___dateDebutProd : int = None
-        self.___dateFinProd : int = None
-        self.___id_commande = id_commande
-        self.___num_box : int = None
+        self._dateDebutProd : int = None
+        self._dateFinProd : int = None
+        self._id_commande = id_commande
+        self._num_box : int = None
         self._type = Type_produit
         """# @AssociationMultiplicity 1"""
 
     def affichage(self):
-        print(self._type.id)
+        print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd)
 

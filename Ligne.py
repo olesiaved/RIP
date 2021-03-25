@@ -17,4 +17,23 @@ class Ligne(object):
 
         for element in self._listes_commandes:
             element.affichage()
+    def calcul_date_produit(self):
+        date=0
+        changer_outils=True
 
+        for i in self._listes_commandes:
+            m = i._liste_produits_afaire
+            for j in range(len(m)):
+                if(changer_outils==True):
+                    date=date+m[j]._type.s
+                m[j]._dateDebutProd =date
+                date=m[j]._type.p+date
+                m[j]._dateFinProd=date
+                print(m[j]._dateDebutProd)
+                i._liste_produits_finis.append(m[j])
+                if j+1<len(m) :
+                    if m[j+1]._type!=m[j]._type:
+                        changer_outils=True
+                    else:
+                        changer_outils=False
+            m.clear()
