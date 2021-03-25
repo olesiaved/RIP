@@ -57,7 +57,7 @@ class Scheduling(object):
 			element.DateEnvoieFin()
 
 	def numero_box_pour_produit(self):
-		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_produit)
+		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_box)
 		for i in self._liste_lignes:
 			for j in i._listes_commandes:
 				for k in j._liste_produits_finis:
