@@ -33,8 +33,8 @@ class Production(object):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
             list_Type_produit.append(Type_produit(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]),int(self._lecture_txt[i+1][4]), int(self._lecture_txt[i+1][5]) ))
-        self.box_manager._listes_types_produit=list_Type_produit
-        self._schedule._listes_types_produit  =list_Type_produit
+        self._schedule.box_manager._listes_types_produit=list_Type_produit
+
 
 
     def create_Commandes(self):
@@ -55,11 +55,11 @@ class Production(object):
 
         for cc in range(len(self._schedule._liste_commandes)):
 
-            for aa in range(len(self.box_manager._listes_types_produit)) :
+            for aa in range(len(self._schedule.box_manager._listes_types_produit)) :
 
                 for bb in range(self._schedule._liste_commandes[cc]._list_prod[aa]) :
 
-                    self._schedule._liste_commandes[cc]._liste_produits_afaire.append(Produit(self._schedule._liste_commandes[cc]._id,(self.box_manager._listes_types_produit[aa])))
+                    self._schedule._liste_commandes[cc]._liste_produits_afaire.append(Produit(self._schedule._liste_commandes[cc]._id,(self._schedule.box_manager._listes_types_produit[aa])))
 
 
 
@@ -73,7 +73,7 @@ class Production(object):
         c=int(self._lecture_txt[0][3])
         for i in range(a+b,a+b+c):
             list_Type_box.append(Type_box(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]) ))
-        self.box_manager._listes_types_box=list_Type_box
+        self._schedule.box_manager._listes_types_box=list_Type_box
 
     def create_Lignes(self):
         list_Lignes = []
@@ -93,8 +93,8 @@ class Production(object):
     def Calcul_cout_box(self):
         k=0
         for i in self._schedule._liste_commandes:
-            for j in range(len(self.box_manager._listes_types_produit)):
-                k=k+i._list_prod[j]*self.box_manager._listes_types_produit[j].type_box.prix_box
+            for j in range(len(self._schedule.box_manager._listes_types_produit)):
+                k=k+i._list_prod[j]*self._schedule.box_manager._listes_types_produit[j].type_box.prix_box
         self._cout=self._cout+k
 
 
@@ -103,8 +103,7 @@ class Production(object):
 
     def __init__(self):
         self._cout = 0
-        self.box_manager=Box_manager()
-        """# @AssociationMultiplicity 1"""
+
         self._schedule=Scheduling()
         """# @AssociationMultiplicity 1"""
         self._lecture_txt=None

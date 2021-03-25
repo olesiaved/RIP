@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-
-
+from Box_manager import Box_manager
 class Scheduling(object):
 
 	def __init__(self):
 		self._liste_commandes = []
 		"""# @AssociationMultiplicity 1..*"""
-		self._listes_types_produit = []
 		"""# @AssociationMultiplicity 1..*"""
 		self._liste_lignes = []
 		"""# @AssociationMultiplicity 1..*"""
+		self.box_manager = Box_manager()
+		"""# @AssociationMultiplicity 1"""
 
 	def TriCommande(self,ListCommande):
 		# ENSEMBLE DES COMMANDES A AJOUTER CONSIDEREE
@@ -45,6 +45,9 @@ class Scheduling(object):
 	def AffichageEtatLignes(self):
 		for element in self._liste_lignes:
 			element.affichage()
+	def calcul_date_prod(self):
+		for i in self._liste_lignes:
+			i.calcul_date_produit()
 
 """ 	def DelayLine(self,ligne):
 		LocalDelayLine=0
