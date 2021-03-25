@@ -13,7 +13,7 @@ class Commande(object):
         self._penalite = p
         self._dateReel =None
         self._list_prod = list_prod
-        self.___num_ligne : int = None
+        self._num_ligne : int = None
         self._liste_produits_afaire = []
         self._liste_produits_finis = []
 
@@ -22,3 +22,5 @@ class Commande(object):
     def affichage(self):
         print ("Commande", self._id, " ", self.___stockMin, " ", self._datePrevue, " ", self._dateReel, "",self._penalite," ",self._list_prod)
 
+    def DateEnvoieFin(self):
+        self._dateReel = self._liste_produits_finis[len(self._liste_produits_finis)-1]._dateFinProd + self.___stockMin

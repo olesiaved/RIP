@@ -34,6 +34,7 @@ class Scheduling(object):
 					BestDelayLine=LocalDelayLine
 					LigneReference=LocalLigne
 
+			LocalCom._num_ligne = LigneReference._numero
 			LigneReference._listes_commandes.append(LocalCom)
 
 	def InitialasiationTri(self):
@@ -42,12 +43,18 @@ class Scheduling(object):
 	def AffichageEtatCommande(self):
 		for element in self._liste_commandes:
 			element.affichage()
+
 	def AffichageEtatLignes(self):
 		for element in self._liste_lignes:
 			element.affichage()
+
 	def calcul_date_prod(self):
 		for i in self._liste_lignes:
 			i.calcul_date_produit()
+
+	def date_fin_prod(self):
+		for element in self._liste_commandes:
+			element.DateEnvoieFin()
 
 	def numero_box_pour_produit(self):
 		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_produit)
@@ -55,6 +62,7 @@ class Scheduling(object):
 			for j in i._listes_commandes:
 				for k in j._liste_produits_finis:
 					self.box_manager.Achat_Box_Type(k)
+
 
 
 """ 	def DelayLine(self,ligne):

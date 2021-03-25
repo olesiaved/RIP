@@ -7,7 +7,7 @@ class Ligne(object):
     def Produire(self, aDate : int) -> None:
         pass
     def __init__(self,n):
-        self.___numero=n
+        self._numero=n
         self.___produit_en_Cours : Produit = None
         self.___dernier_Produit_fini : Produit = None
         self._listes_commandes = []
@@ -17,6 +17,8 @@ class Ligne(object):
 
         for element in self._listes_commandes:
             element.affichage()
+
+
     def calcul_date_produit(self):
         date = 0
         changer_outils=True
@@ -29,7 +31,7 @@ class Ligne(object):
                 m[j]._dateDebutProd =date
                 date=m[j]._type.p+date
                 m[j]._dateFinProd=date
-                print(m[j]._dateDebutProd)
+                #print(m[j]._dateDebutProd)
                 i._liste_produits_finis.append(m[j])
                 if j+1<len(m) :
                     if m[j+1]._type!=m[j]._type:

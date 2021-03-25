@@ -16,11 +16,21 @@ class Production(object):
         self.create_Type_box()
         self.create_Type_produit()
         self.create_Commandes()
+        self._schedule.box_manager.Attribution_type()
+        self._schedule.InitialasiationTri()
+        self._schedule.calcul_date_prod()
+        self._schedule.numero_box_pour_produit()
+        self._schedule.date_fin_prod()
+        self.Calcul_cout_retard()
+        self.Calcul_cout_box()
+        print(self._cout)
 
+    def __init__(self):
+        self._cout = 0
 
-    def Calcul_cout_delay(self, aCmd : Commande):
-        pass
-    #une méthode qui s'occupe de la lecture du fichier txt. L'argument est un chemin relatif pour ceux fichier
+        self._schedule = Scheduling()
+        """# @AssociationMultiplicity 1"""
+        self._lecture_txt = None
 
     def Lecture_fichier(self,filename):
         production_list=[]
@@ -28,6 +38,35 @@ class Production(object):
             for line in csvfile:
                 production_list.append(line.strip().split())
             self._lecture_txt=production_list
+
+    def EcritureResult(self, filename):
+
+        file_name = filename
+        print(file_name)
+        index = file_name.index('.txt')
+        file_name = file_name[:index]
+        file_name = file_name + ".sol"
+        f = open(file_name, "w")
+        f = open(file_name, "a")
+        f.write(str(self._cout))
+        f.write('\n')
+
+        for i in range(len(self._schedule.box_manager._listes_box)):
+            f.write(str(self._schedule.box_manager._listes_types_box[i].type)+" "+str(self._schedule.box_manager._listes_box[i]))
+            f.write('\n')
+
+        for element in self._schedule._liste_commandes:
+            f.write(str(element._id) + " " + str(element._dateReel))
+            f.write('\n')
+
+
+        for elt in self._schedule._liste_commandes:
+            for elt2 in elt._liste_produits_finis :
+                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateFinProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._num_box))
+                f.write('\n')
+
+
+
 
     def create_Type_produit(self):
         list_Type_produit=[]
@@ -82,14 +121,15 @@ class Production(object):
             list_Lignes.append(Ligne(i))
         self._schedule._liste_lignes=list_Lignes
 
-    def Ecriture_fichier(self):
-        pass
+
     def Calcul_cout_retard(self):
         k=0
         m=self._schedule._liste_commandes
         for i in m:
             k=k+abs(i._dateReel-i._datePrevue)*i._penalite
         self._cout+=k
+
+
     def Calcul_cout_box(self):
         k=0
         for i in self._schedule._liste_commandes:
@@ -97,13 +137,3 @@ class Production(object):
                 k=k+i._list_prod[j]*self._schedule.box_manager._listes_types_produit[j].type_box.prix_box
         self._cout=self._cout+k
 
-
-    def Calcul_cout_conteneur(self):
-        pass
-
-    def __init__(self):
-        self._cout = 0
-
-        self._schedule=Scheduling()
-        """# @AssociationMultiplicity 1"""
-        self._lecture_txt=None
