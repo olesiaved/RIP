@@ -49,6 +49,14 @@ class Scheduling(object):
 		for i in self._liste_lignes:
 			i.calcul_date_produit()
 
+	def numero_box_pour_produit(self):
+		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_produit)
+		for i in self._liste_lignes:
+			for j in i._listes_commandes:
+				for k in j._liste_produits_finis:
+					self.box_manager.Achat_Box_Type(k)
+
+
 """ 	def DelayLine(self,ligne):
 		LocalDelayLine=0
 		LocalVarm = 0

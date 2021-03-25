@@ -18,8 +18,10 @@ class Box_manager(object):
     def Available_Box_Type(self, aBB ) :
         pass
 
-    def Achat_Box_Type(self, aBB ):
-        pass
+    def Achat_Box_Type(self, p ):
+        i=self._listes_types_box.index(p._type.type_box)
+        self._listes_box[i]+=1
+        p._num_box=self._listes_box[i]
 
     def __init__(self):
         self._listes_box = []

@@ -18,7 +18,7 @@ class Ligne(object):
         for element in self._listes_commandes:
             element.affichage()
     def calcul_date_produit(self):
-        date=0
+        date = 0
         changer_outils=True
 
         for i in self._listes_commandes:
