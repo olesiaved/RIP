@@ -8,7 +8,7 @@ class Commande(object):
 
     def __init__(self, id, stock, dP, p,list_prod):
         self._id = id
-        self.___stockMin = stock
+        self._stockMin = stock
         self._datePrevue = dP
         self._penalite = p
         self._dateReel =None
@@ -23,4 +23,5 @@ class Commande(object):
         print ("Commande", self._id, " ", self.___stockMin, " ", self._datePrevue, " ", self._dateReel, "",self._penalite," ",self._list_prod)
 
     def DateEnvoieFin(self):
-        self._dateReel = self._liste_produits_finis[len(self._liste_produits_finis)-1]._dateFinProd + self.___stockMin
+        print(self._stockMin)
+        self._dateReel = self._liste_produits_finis[len(self._liste_produits_finis)-1]._dateFinProd + self._stockMin

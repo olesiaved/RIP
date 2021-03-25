@@ -23,7 +23,7 @@ class Production(object):
         self._schedule.date_fin_prod()
         self.Calcul_cout_retard()
         self.Calcul_cout_box()
-        print(self._cout)
+        self.EcritureResult(filename)
 
     def __init__(self):
         self._cout = 0
@@ -62,7 +62,7 @@ class Production(object):
 
         for elt in self._schedule._liste_commandes:
             for elt2 in elt._liste_produits_finis :
-                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateFinProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._num_box))
+                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._num_box))
                 f.write('\n')
 
 
