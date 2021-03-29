@@ -48,13 +48,19 @@ class Scheduling(object):
 		for element in self._liste_lignes:
 			element.affichage()
 
+# Calcul de la production de chaque ligne
+
 	def calcul_date_prod(self):
 		for i in self._liste_lignes:
 			i.calcul_date_produit()
 
+# Calcul de la date réelle d'envoie pour chaque commande
+
 	def date_fin_prod(self):
 		for element in self._liste_commandes:
 			element.DateEnvoieFin()
+
+# Attribution d'un numero de box pour chaque produit
 
 	def numero_box_pour_produit(self):
 		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_box)

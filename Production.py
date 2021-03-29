@@ -10,6 +10,8 @@ from Produit import Produit
 
 #Classe qui assure la gestion
 class Production(object):
+
+#Fonction finale assurant le processus depuis la lecture du ficheir jusqu'à l'écriture du fichier résultat
     def simulation_production(self,filename):
         self.Lecture_fichier(filename)
         self.create_Lignes()
@@ -154,6 +156,8 @@ class Production(object):
         self._schedule._liste_lignes=list_Lignes
 
 
+# Calcul après traitement de toutes lesc commandes de A à Z du cout final
+# engendré par le retard des commandes
 
 
     def Calcul_cout_retard(self):
@@ -163,8 +167,8 @@ class Production(object):
             k=k+abs(i._dateReel-i._datePrevue)*i._penalite
         self._cout+=k
 
-    # Calcul après traitement de toutes lesc commandes de A à Z du cout final
-    # engendré par l'achat de toutes les boxs achetees au cours du traitement
+# Calcul après traitement de toutes lesc commandes de A à Z du cout final
+# engendré par l'achat de toutes les boxs achetees au cours du traitement
 
     def Calcul_cout_box(self):
         k=0

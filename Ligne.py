@@ -27,23 +27,32 @@ class Ligne(object):
 
     def calcul_date_produit(self):
         date = 0
+        k=self._listes_commandes[0]._liste_produits_afaire[0]
+        changer_commande=False
         changer_outils=True
+
         for i in self._listes_commandes:
             m = i._liste_produits_afaire
             for j in range(len(m)):
-                if(changer_outils==True):
+
+                if(k._type.id!=m[j]._type.id)and(changer_commande==True): # verification s'il y a eu lieu un chagement de commande
+                    changer_outils = True
+
+                if(changer_outils==True):                                 # verification s'il faut changer les outils
                     date=date+m[j]._type.s
+
                 m[j]._dateDebutProd =date
-                date=m[j]._type.p+date
+                date=m[j]._type.p+date                                    # incrementation de la date
                 m[j]._dateFinProd=date
-                m[j].affichage()
                 i._liste_produits_finis.append(m[j])
-                if j+1<len(m):
+
+                if j+1<len(m):                                            # verification de la fin de commande
+                    changer_commande=False                                # verification du changement des outils
                     if m[j+1]._type.id==m[j]._type.id:
                         changer_outils = False
                     else:
                         changer_outils=True
-                        print(1)
                 else:
-                    changer_outils = True
+                    k=m[j]
+                    changer_commande=True
             m.clear()

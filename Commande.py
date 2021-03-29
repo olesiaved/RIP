@@ -25,8 +25,8 @@ class Commande(object):
     def affichage(self):
         print ("Commande", self._id, " ", self._stockMin, " ", self._datePrevue, " ", self._dateReel, "",self._penalite," ",self._list_prod)
 
+# uptade de la date reelle de livraison en fonction de la date de fin du dernier article + delais mini à attendre en stock
 
     def DateEnvoieFin(self):
-        #uptade de la date reelle de livraison en fonction de la date de fin du dernier article + delais mini à attendre en stock
         print(self._stockMin)
         self._dateReel = self._liste_produits_finis[len(self._liste_produits_finis)-1]._dateFinProd + self._stockMin
