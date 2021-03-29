@@ -23,7 +23,7 @@ class Commande(object):
 
 
     def affichage(self):
-        print ("Commande", self._id, " ", self.___stockMin, " ", self._datePrevue, " ", self._dateReel, "",self._penalite," ",self._list_prod)
+        print ("Commande", self._id, " ", self._stockMin, " ", self._datePrevue, " ", self._dateReel, "",self._penalite," ",self._list_prod)
 
 
     def DateEnvoieFin(self):
