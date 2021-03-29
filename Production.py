@@ -8,7 +8,7 @@ from Ligne import Ligne
 from Type_box import Type_box
 from Produit import Produit
 
-#NEWNEWNEW
+#Classe qui assure la gestion
 class Production(object):
     def simulation_production(self,filename):
         self.Lecture_fichier(filename)
@@ -25,13 +25,15 @@ class Production(object):
         self.Calcul_cout_box()
         self.EcritureResult(filename)
 
+# Initialisation du scheduler (qui gère la répartition de l'ensemble des données) - du cout final
+
     def __init__(self):
         self._cout = 0
-
-        self._schedule = Scheduling()
+        self._schedule = Scheduling() # Initialisation du scheduler (qui gère la répartition de l'ensemble des données)
         """# @AssociationMultiplicity 1"""
         self._lecture_txt = None
 
+# Initialisation de la lecture du fichier données
     def Lecture_fichier(self,filename):
         production_list=[]
         with open(filename, newline='') as csvfile:
@@ -39,6 +41,8 @@ class Production(object):
                 production_list.append(line.strip().split())
             self._lecture_txt=production_list
 
+
+# creation du fichier réponse au nom demandé et remplissage (detail dans le code)
     def EcritureResult(self, filename):
 
         file_name = filename
@@ -46,20 +50,24 @@ class Production(object):
         index = file_name.index('.txt')
         file_name = file_name[:index]
         file_name = file_name + ".sol"
+
+# Ecriture dans le fichier solution
         f = open(file_name, "w")
         f = open(file_name, "a")
         f.write(str(self._cout))
         f.write('\n')
 
+# Ecriture dans le fichier sol: nombre de boxe par type
         for i in range(len(self._schedule.box_manager._listes_box)):
             f.write(str(self._schedule.box_manager._listes_types_box[i].type)+" "+str(self._schedule.box_manager._listes_box[i]))
             f.write('\n')
 
+# Ecriture dans le fichier sol: id de chaque commande et date reelle de sortie d'usine
         for element in self._schedule._liste_commandes:
             f.write(str(element._id) + " " + str(element._dateReel))
             f.write('\n')
 
-
+# Ecriture dans le fichier sol: liste des produits finis avec leurs caractéristiques
         for elt in self._schedule._liste_commandes:
             for elt2 in elt._liste_produits_finis :
                 f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._num_box))
@@ -68,6 +76,11 @@ class Production(object):
 
 
 
+
+
+#Lecture de l'ensemble des types de produits à partir du fichier de données
+#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type produit du box manager lui même situé dans le scheduler
+
     def create_Type_produit(self):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
@@ -75,6 +88,13 @@ class Production(object):
         self._schedule.box_manager._listes_types_produit=list_Type_produit
 
 
+
+
+
+
+
+#Lecture de l'ensemble des commandes à partir du fichier de données
+#Les commandes sont créées avec leurs caractéristiques et directement placées dans la liste de commande du scheduler (avec leurs caractéristiques)
 
     def create_Commandes(self):
         list_Commande = []
@@ -89,8 +109,11 @@ class Production(object):
 
         self._schedule._liste_commandes = list_Commande
 
-        """COMMANDE créées avant cette ligne mais laissées vides (en terme de produit)
-        Commande remplie ci-dessous (grâce à la création de l'ensemble des produits composants de la commande):"""
+# commandes créées avant cette ligne mais laissées vides jusqu'ici (en terme de produit)
+
+
+# commandes remplies ci-dessous (grâce à la création de l'ensemble des produits les composants)
+# Pour une commande donnée : attribution de ces objets dans la liste des produits à faire de la commande en question
 
         for cc in range(len(self._schedule._liste_commandes)):
 
@@ -105,6 +128,9 @@ class Production(object):
 
 
 
+#Lecture de l'ensemble des types de box à partir du fichier de données
+#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type box du box manager lui même situés dans le scheduler
+
     def create_Type_box(self):
         list_Type_box=[]
         a=int(self._lecture_txt[0][0])
@@ -114,12 +140,20 @@ class Production(object):
             list_Type_box.append(Type_box(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]) ))
         self._schedule.box_manager._listes_types_box=list_Type_box
 
+
+
+
+#Lecture de l'ensemble des lignes de productions à partir du fichier de données
+#Les lignes sont créées avec leurs caractéristiques et directement placées dans la liste de lignes du scheduler
+
     def create_Lignes(self):
         list_Lignes = []
         c = int(self._lecture_txt[0][2])
         for i in range(c):
             list_Lignes.append(Ligne(i))
         self._schedule._liste_lignes=list_Lignes
+
+
 
 
     def Calcul_cout_retard(self):
@@ -129,6 +163,8 @@ class Production(object):
             k=k+abs(i._dateReel-i._datePrevue)*i._penalite
         self._cout+=k
 
+    # Calcul après traitement de toutes lesc commandes de A à Z du cout final
+    # engendré par l'achat de toutes les boxs achetees au cours du traitement
 
     def Calcul_cout_box(self):
         k=0

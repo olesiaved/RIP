@@ -7,10 +7,9 @@ class Ligne(object):
     def Produire(self, aDate : int) -> None:
         pass
     def __init__(self,n):
-        self._numero=n
-        self.___produit_en_Cours : Produit = None
-        self.___dernier_Produit_fini : Produit = None
-        self._listes_commandes = []
+        self._numero=n                  #numero de la ligne
+        self._listes_commandes = []     # liste des commandes attribuées à la ligne (qui doivent donc y être produites)
+
 
     def affichage(self):
         print ("Ligne", self.___numero)
@@ -18,6 +17,13 @@ class Ligne(object):
         for element in self._listes_commandes:
             element.affichage()
 
+#fabrication de l'ensemble des produits attribués à la ligne de prod
+
+#pour ce faire : étape 1 : accès à la première commande de la liste des commandes à produire sur la ligne de prod
+
+#production de l'ensemble des produits appartenant à la liste "produits à faire" de cette commande
+
+#passage à la commande suivante
 
     def calcul_date_produit(self):
         date = 0
