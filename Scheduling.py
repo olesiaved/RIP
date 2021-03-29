@@ -1,6 +1,26 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 from Box_manager import Box_manager
+
+
+
+
+
+
+# Afin d'implementer notre solution partielle il est nécessaire de run notre classe "Main"
+
+# Dans cette classe Main le nom du fichier txt contenant les données y est précisé
+# (ainsi le programme peut facilement être utilisé peu importe le nom du fichier txt)
+
+# Dans le "Main" une entité "Production" est créée et sa fonction simulation_production est appelée afin de traiter les données
+# créer et remplir le fichier solution (résolution de l'ensemble du problème informatique)
+
+
+
+
+
+# classe de gestion des production de toutes les commandes, produits, attribution de box et gestion des boxs
+# 2nd classe principale après la classe Production
 class Scheduling(object):
 
 	def __init__(self):
@@ -11,6 +31,11 @@ class Scheduling(object):
 		"""# @AssociationMultiplicity 1..*"""
 		self.box_manager = Box_manager()
 		"""# @AssociationMultiplicity 1"""
+
+
+
+
+# repartition des commandes entre les lignes de production à disposition
 
 	def TriCommande(self,ListCommande):
 		# ENSEMBLE DES COMMANDES A AJOUTER CONSIDEREE
@@ -48,11 +73,15 @@ class Scheduling(object):
 		for element in self._liste_lignes:
 			element.affichage()
 
-# Calcul de la production de chaque ligne
 
+
+
+# production de toutes les commandes de chaque ligne
 	def calcul_date_prod(self):
 		for i in self._liste_lignes:
 			i.calcul_date_produit()
+
+
 
 # Calcul de la date réelle d'envoie pour chaque commande
 
@@ -60,8 +89,8 @@ class Scheduling(object):
 		for element in self._liste_commandes:
 			element.DateEnvoieFin()
 
-# Attribution d'un numero de box pour chaque produit
 
+# Attribution d'un numero de box pour chaque produit
 	def numero_box_pour_produit(self):
 		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_box)
 		for i in self._liste_lignes:

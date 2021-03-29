@@ -3,11 +3,26 @@
 from Produit import Produit
 
 
+
+
+# Afin d'implementer notre solution partielle il est nécessaire de run notre classe "Main"
+
+# Dans cette classe Main le nom du fichier txt contenant les données y est précisé
+# (ainsi le programme peut facilement être utilisé peu importe le nom du fichier txt)
+
+# Dans le "Main" une entité "Production" est créée et sa fonction simulation_production est appelée afin de traiter les données
+# créer et remplir le fichier solution (résolution de l'ensemble du problème informatique)
+
+
+
+
+
+# classe ligne de production
 class Ligne(object):
     def Produire(self, aDate : int) -> None:
         pass
     def __init__(self,n):
-        self._numero=n                  #numero de la ligne
+        self._numero=n                  # numero de la ligne
         self._listes_commandes = []     # liste des commandes attribuées à la ligne (qui doivent donc y être produites)
 
 
@@ -17,13 +32,16 @@ class Ligne(object):
         for element in self._listes_commandes:
             element.affichage()
 
-#fabrication de l'ensemble des produits attribués à la ligne de prod
 
-#pour ce faire : étape 1 : accès à la première commande de la liste des commandes à produire sur la ligne de prod
 
-#production de l'ensemble des produits appartenant à la liste "produits à faire" de cette commande
 
-#passage à la commande suivante
+#"fabrication" de l'ensemble des produits attribués à la ligne de prod (=mise à jour de la date de prod. du produit en question)
+
+#pour ce faire : étape 1 : accès à la première commande de la liste des commandes à produire ici
+
+#"production" de l'ensemble des produits appartenant à la liste "produits à faire" de cette commande (=mise à jour de la date de prod.)
+
+#passage à la commande suivante et ainsi de suite
 
     def calcul_date_produit(self):
         date = 0
