@@ -31,7 +31,7 @@ class Production(object):
 
 
     def __init__(self):
-        self._cout = 0                          # calcul cout final de tout le traitement (achat des box et pénalités)
+        self._cout = 0                          # calcul cout final du traitement (achat des box et pénalités)
         self._schedule = Scheduling()           # Initialisation du scheduler (qui gère la répartition de l'ensemble des données)
         """# @AssociationMultiplicity 1"""
         self._lecture_txt = None
@@ -50,7 +50,7 @@ class Production(object):
  # creation du fichier réponse au nom demandé et remplissage sous la forme demandée dans le sujet(detail dans le code)
     def EcritureResult(self, filename):
 
-# Création dans le fichier solution
+# Création du fichier solution
         file_name = filename
         print(file_name)
         index = file_name.index('.txt')
@@ -85,7 +85,7 @@ class Production(object):
 
 
 #Lecture de l'ensemble des types de produits à partir du fichier de donnée
-#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type produit du box manager du scheduler
+#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type produit du box manager (lui même dans le scheduler)
     def create_Type_produit(self):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
@@ -134,7 +134,7 @@ class Production(object):
 
 
 #Lecture de l'ensemble des types de box à partir du fichier de données
-#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type box du box manager du le scheduler
+#Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type box du box manager dans le scheduler
 
     def create_Type_box(self):
         list_Type_box=[]
