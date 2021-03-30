@@ -2,23 +2,6 @@
 # -*- coding: UTF-8 -*-
 from Box_manager import Box_manager
 
-
-
-
-
-
-# Afin d'implementer notre solution partielle il est nécessaire de run notre classe "Main"
-
-# Dans cette classe Main le nom du fichier txt contenant les données y est précisé
-# (ainsi le programme peut facilement être utilisé peu importe le nom du fichier txt)
-
-# Dans le "Main" une entité "Production" est créée et sa fonction simulation_production est appelée afin de traiter les données
-# créer et remplir le fichier solution (résolution de l'ensemble du problème informatique)
-
-
-
-
-
 # classe de gestion des production de toutes les commandes, produits, attribution de box et gestion des boxs
 # 2nd classe principale après la classe Production
 class Scheduling(object):

@@ -9,24 +9,6 @@ from Type_box import Type_box
 from Produit import Produit
 
 
-
-
-
-
-
-# Afin d'implementer notre solution partielle il est nécessaire de run notre classe "Main"
-
-# Dans cette classe Main le nom du fichier txt contenant les données y est précisé
-# (ainsi le programme peut facilement être utilisé peu importe le nom du fichier txt)
-
-# Dans le "Main" une entité "Production" est créée et sa fonction simulation_production est appelée afin de traiter les données
-# créer et remplir le fichier solution (résolution de l'ensemble du problème informatique)
-
-
-
-
-
-
 #Classe centrale du projet: assure la gestion de l'ensemble des lignes de production, commandes, données, box...
 class Production(object):
 
