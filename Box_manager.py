@@ -23,16 +23,37 @@ class Box_manager(object):
     def calcul_place_libre(self, box):
         long= box._type.lbox
         place_ocupee=0
-        for i in range (len(self._listes_types_produit)):
+        for i in range (len(box._type_pile)):
             if box._produit[i]!=0:
-                place_ocupee+=self._listes_types_produit[i].ltype
+                place_ocupee+=box._type_pile[i].ltype
         return long-place_ocupee
 
 #prochainement utile (solution complète)
     def Available_Box_Type(self, p) :
+        box=None
+        trouve=False
         for j in self._listes_box:
-            if j._id_commande==p._id_commande:
-                if p._type.ltype 
+            if (j._id_commande == p._id_commande) and (trouve==False):
+                for t in range(len(j._type_pile)):
+                    if p._type==j._type_pile[t]:
+                        i=t
+                        if j._produit[i]<p._type.nbEmpileMax:
+                            if j._type.hbox-j._produit[i]*p._type.htype>p._type.htype:
+                                trouve=True
+                                box = j
+                                box._produit[i] += 1
+                                p._box = box
+
+                if (p._type.ltype < self.calcul_place_libre(j))and (trouve==False):
+                    trouve=True
+                    box=j
+                    p._box=box
+                    box._produit.append(1)
+                    box._type_pile.append(p._type)
+                if trouve==True:
+                    break
+        return box
+
 
 
 
@@ -40,22 +61,23 @@ class Box_manager(object):
 # Incrementation du compteur des box
     def Achat_Box_Type(self, p ):
         i=self._listes_types_box.index(p._type.type_box)
-        self._listes_box[i]+=1
-        box=Box(self._listes_box[i],p._type.type_box)
+        self._compteur_box[i]+=1
+        box=Box(self._compteur_box[i],p._type.type_box)
+        self._listes_box.append(box)
         box._id_commande=p._id_commande
-        j=self._listes_types_produit(p._type)
-        box.produit=[0]*len(self._listes_types_produit)
-        box.produit[j]+=1
+        box._type_pile.append(p._type)
+        box._produit.append(1)
         p._box=box
-        box_num=self._listes_box[i]
+        p.affichage()
+        box._numero=self._compteur_box[i]
 
 
 
     def __init__(self):
-        self._listes_box = []                 # compteur des box achetés par type
+        self._listes_box = []     # compteur des box achetés par type
         self._listes_types_produit = []
         self._listes_types_box = []
-
+        self._compteur_box=0
 
     
     

@@ -13,8 +13,11 @@ class Box(object):
 
     def __init__(self, n, type):
         self._numero=n
-        self._produit  = [ ] #produit attribué à cette box
+        self._produit  = [] #produit attribué à cette box
+        self._type_pile=[]
         self._type=type
         self._id_commande=None
         """# @AssociationMultiplicity 1"""
-
+    def affichage(self):
+        print(self._numero," ", " ", self._id_commande)
+        self._type.affichage()

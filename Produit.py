@@ -15,5 +15,6 @@ class Produit(object):
         """# @AssociationMultiplicity 1"""
 
     def affichage(self):
-        print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd, " ", self._num_box)
+        print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd)
+        self._box.affichage()
 
