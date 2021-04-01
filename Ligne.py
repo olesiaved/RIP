@@ -8,8 +8,8 @@ class Ligne(object):
         pass
     def __init__(self,n):
         self._numero=n                  # numero de la ligne
-        self._listes_commandes = []     # liste des commandes attribuées à la ligne (qui doivent donc y être produites)
-
+        self._listes_commandes = []  # liste des commandes attribuées à la ligne (qui doivent donc y être produites)
+        self._produits_afaire = []
 
     def affichage(self):
         print ("Ligne", self.___numero)
@@ -59,3 +59,19 @@ class Ligne(object):
                     k=m[j]
                     changer_commande=True
             m.clear()
+
+    def calcul_date_produit_opt (self):
+        date = 0
+        changer_outils = True
+        m = self._produits_afaire
+        for j in range(len(m)):
+            if (changer_outils == True):  # verification s'il faut changer les outils
+                    date = date + m[j]._type.s
+            m[j]._dateDebutProd = date
+            date = m[j]._type.p + date  # incrementation de la date
+            m[j]._dateFinProd = date
+            if j + 1 < len(m):  # verification de la fin de commande
+                if m[j + 1]._type.id == m[j]._type.id:
+                    changer_outils = False
+                else:
+                        changer_outils = True

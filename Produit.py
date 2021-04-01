@@ -10,7 +10,7 @@ class Produit(object):
         self._dateDebutProd : int = None     # date début de prod du produit
         self._dateFinProd : int = None       # date fin de prod du produit
         self._id_commande = id_commande      # id commande à laquelle le produit est rattaché
-        self._num_box : int = None           # numero de la box attribuée au produit
+        self._box=None         # numero de la box attribuée au produit
         self._type = Type_produit            # type de produit
         """# @AssociationMultiplicity 1"""
 

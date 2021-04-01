@@ -76,7 +76,7 @@ class Production(object):
 # Ecriture dans le fichier sol: liste des produits finis avec leurs caractéristiques
         for elt in self._schedule._liste_commandes:
             for elt2 in elt._liste_produits_finis :
-                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._num_box))
+                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._box._numero))
                 f.write('\n')
 
 
@@ -172,9 +172,5 @@ class Production(object):
 
 # Calcul après traitement de toutes les commandes du cout engendré par l'achat de toutes les boxs achetees + ajout au cout total
     def Calcul_cout_box(self):
-        k=0
-        for i in self._schedule._liste_commandes:
-            for j in range(len(self._schedule.box_manager._listes_types_produit)):
-                k=k+i._list_prod[j]*self._schedule.box_manager._listes_types_produit[j].type_box.prix_box
-        self._cout=self._cout+k
+        pass
 

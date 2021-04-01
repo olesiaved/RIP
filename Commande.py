@@ -21,7 +21,7 @@ class Commande(object):
         self._liste_produits_afaire = [] # liste d'entités objets non terminés correspondants à la commande
         #objet non terminé = date de production du produit en question non renseignée avant passage dans la ligne de prod.
 
-        self._liste_produits_finis = []  # liste d'entités objets terminés correspondants à la commande
+        #self._liste_produits_finis = []  # liste d'entités objets terminés correspondants à la commande
         # objet terminé = date de production du produit en question renseignée après passage dans la ligne de prod.
 
 

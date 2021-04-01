@@ -6,12 +6,15 @@ class Box(object):
 
     #prochainement utile
     def ViderBox(self):
-        pass
+        self._id_commande=None
+        self._produit=None
+
 
 
     def __init__(self, n, type):
-        self.___numero=n
-        self._produit  = None #produit attribué à cette box
+        self._numero=n
+        self._produit  = [ ] #produit attribué à cette box
         self._type=type
+        self._id_commande=None
         """# @AssociationMultiplicity 1"""
 

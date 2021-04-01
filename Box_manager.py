@@ -20,10 +20,20 @@ class Box_manager(object):
                     b=j
             i.type_box=b
 
+    def calcul_place_libre(self, box):
+        long= box._type.lbox
+        place_ocupee=0
+        for i in range (len(self._listes_types_produit)):
+            if box._produit[i]!=0:
+                place_ocupee+=self._listes_types_produit[i].ltype
+        return long-place_ocupee
 
 #prochainement utile (solution complète)
-    def Available_Box_Type(self, aBB ) :
-        pass
+    def Available_Box_Type(self, p) :
+        for j in self._listes_box:
+            if j._id_commande==p._id_commande:
+                if p._type.ltype 
+
 
 
 # Achat d'un box correspondant au produit
@@ -31,7 +41,14 @@ class Box_manager(object):
     def Achat_Box_Type(self, p ):
         i=self._listes_types_box.index(p._type.type_box)
         self._listes_box[i]+=1
-        p._num_box=self._listes_box[i]
+        box=Box(self._listes_box[i],p._type.type_box)
+        box._id_commande=p._id_commande
+        j=self._listes_types_produit(p._type)
+        box.produit=[0]*len(self._listes_types_produit)
+        box.produit[j]+=1
+        p._box=box
+        box_num=self._listes_box[i]
+
 
 
     def __init__(self):
