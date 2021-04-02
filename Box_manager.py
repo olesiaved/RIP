@@ -71,7 +71,11 @@ class Box_manager(object):
         p.affichage()
         box._numero=self._compteur_box[i]
 
-
+    def gestion_produit_finis(self, p):
+        b=self.Available_Box_Type(p)
+        if b==None:
+            self.Achat_Box_Type(p)
+        
 
     def __init__(self):
         self._listes_box = []     # compteur des box achetés par type

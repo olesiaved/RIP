@@ -75,3 +75,11 @@ class Ligne(object):
                     changer_outils = False
                 else:
                         changer_outils = True
+
+    def recherche_date_suivante(self, date):
+        choix=None
+        for i in self._produits_afaire:
+            if i._dateFinProd>=date:
+                choix=i
+                break
+        return choix

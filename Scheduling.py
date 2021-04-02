@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+from operator import attrgetter
+
 from Box_manager import Box_manager
 
 # classe de gestion des production de toutes les commandes, produits, attribution de box et gestion des boxs
@@ -71,8 +73,22 @@ class Scheduling(object):
 	def date_fin_prod(self):
 		for element in self._liste_commandes:
 			element.DateEnvoieFin()
+	def recherche_date_suivante(self):
+		date =0
+		stop = False
+		while ( stop==False ):
+			liste = []
+			for i in self._liste_lignes:
+				liste.append(i.recherche_date_suivante(date))
+				liste = list(filter(None, liste))
+				if liste!=[]:
+					min = min(liste, key=attrgetter("_dateFinProd"))
+					self.box_manager.gestion_produit_finis(min)
+				else:
+					stop=True
 
 
+				""" 
 # Attribution d'un numero de box pour chaque produit
 	def numero_box_pour_produit(self):
 		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_box)
@@ -80,6 +96,8 @@ class Scheduling(object):
 			for j in i._listes_commandes:
 				for k in j._liste_produits_finis:
 					self.box_manager.Achat_Box_Type(k)
+					
+				"""
 
 
 
