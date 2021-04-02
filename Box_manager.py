@@ -75,7 +75,7 @@ class Box_manager(object):
         b=self.Available_Box_Type(p)
         if b==None:
             self.Achat_Box_Type(p)
-        
+
 
     def __init__(self):
         self._listes_box = []     # compteur des box achetés par type

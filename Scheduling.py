@@ -84,6 +84,7 @@ class Scheduling(object):
 				if liste!=[]:
 					min = min(liste, key=attrgetter("_dateFinProd"))
 					self.box_manager.gestion_produit_finis(min)
+					date=min._dateFinProd
 				else:
 					stop=True
 
