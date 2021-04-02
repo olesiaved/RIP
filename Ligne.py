@@ -79,7 +79,7 @@ class Ligne(object):
     def recherche_date_suivante(self, date):
         choix=None
         for i in self._produits_afaire:
-            if i._dateFinProd>=date:
+            if i._dateFinProd>=date and i._box==None :
                 choix=i
                 break
         return choix

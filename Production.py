@@ -22,7 +22,7 @@ class Production(object):
         self._schedule.box_manager.Attribution_type() # fonction chargée d'attribuées un type de box à chauqe produits
         self._schedule.InitialasiationTri() # attribution des commandes aux lignes de prod de manière optimisée en temps
         self._schedule.calcul_date_prod() # production de tous les produits (calcul de la date de prod et mise à jour)
-        self._schedule.numero_box_pour_produit() # achat et attribution d'une box par produit (solution simpliste)
+        self._schedule.recherche_date_suivante()
         self._schedule.date_fin_prod() # calcul de la date de fin de prod de chacune des commandes
         self.Calcul_cout_retard()   # calcul du cout total des retard et ajout au cout total
         self.Calcul_cout_box()      # calcul du cout total des box et ajout au cout total
@@ -64,8 +64,8 @@ class Production(object):
         f.write('\n')
 
 # Ecriture dans le fichier sol: nombre de boxe par type
-        for i in range(len(self._schedule.box_manager._listes_box)):
-            f.write(str(self._schedule.box_manager._listes_types_box[i].type)+" "+str(self._schedule.box_manager._listes_box[i]))
+        for i in range(len(self._schedule.box_manager._listes_types_box)):
+            f.write(str(self._schedule.box_manager._listes_types_box[i].type)+" "+str(self._schedule.box_manager._compteur_box[i]))
             f.write('\n')
 
 # Ecriture dans le fichier sol: id de chaque commande et date reelle de sortie d'usine
@@ -76,7 +76,7 @@ class Production(object):
 # Ecriture dans le fichier sol: liste des produits finis avec leurs caractéristiques
         for elt in self._schedule._liste_commandes:
             for elt2 in elt._liste_produits_finis :
-                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type.type_box.type))+" "+str(elt2._box._numero))
+                f.write(str(elt._id) + " " +str(elt2._type.id)+" "+str(elt._num_ligne)+" "+str(elt2._dateDebutProd)+" "+str(str(elt2._type._box._type.type))+" "+str(elt2._box._numero))
                 f.write('\n')
 
 
@@ -114,6 +114,7 @@ class Production(object):
 
         self._schedule._liste_commandes = list_Commande
 
+
 # commandes créées avant cette ligne mais laissées vides jusqu'ici (en terme de produit)
 
 
@@ -133,6 +134,7 @@ class Production(object):
 
 
 
+
 #Lecture de l'ensemble des types de box à partir du fichier de données
 #Les types de box sont créés avec leurs caractéristiques et directement placés dans la liste de type box du box manager dans le scheduler
 
@@ -144,6 +146,7 @@ class Production(object):
         for i in range(a+b,a+b+c):
             list_Type_box.append(Type_box(self._lecture_txt[i+1][0], int(self._lecture_txt[i+1][1]),int(self._lecture_txt[i+1][2]),int(self._lecture_txt[i+1][3]) ))
         self._schedule.box_manager._listes_types_box=list_Type_box
+        self._schedule.box_manager._compteur_box=[0]*len(self._schedule.box_manager._listes_types_box)
 
 
 
@@ -172,5 +175,8 @@ class Production(object):
 
 # Calcul après traitement de toutes les commandes du cout engendré par l'achat de toutes les boxs achetees + ajout au cout total
     def Calcul_cout_box(self):
-        pass
-
+        k=0
+        for i in range(len(self._schedule.box_manager._compteur_box)):
+            k+=self._schedule.box_manager._compteur_box[i]*self._schedule.box_manager._listes_types_box[i].prix_box
+        print(k)
+        self._cout+=k

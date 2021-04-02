@@ -47,6 +47,13 @@ class Scheduling(object):
 			LocalCom._num_ligne = LigneReference._numero
 			LigneReference._listes_commandes.append(LocalCom)
 
+
+		# ici je remplis produit a faire pour chaque ligne
+		for i in self._liste_lignes:
+			for j in i._listes_commandes:
+				for k in j._liste_produits_afaire:
+					i._produits_afaire.append(k)
+
 	def InitialasiationTri(self):
 		self.TriCommande(self._liste_commandes)
 
@@ -64,7 +71,7 @@ class Scheduling(object):
 # production de toutes les commandes de chaque ligne
 	def calcul_date_prod(self):
 		for i in self._liste_lignes:
-			i.calcul_date_produit()
+			i.calcul_date_produit_opt()
 
 
 
@@ -76,17 +83,23 @@ class Scheduling(object):
 	def recherche_date_suivante(self):
 		date =0
 		stop = False
+		min=0
 		while ( stop==False ):
 			liste = []
 			for i in self._liste_lignes:
 				liste.append(i.recherche_date_suivante(date))
 				liste = list(filter(None, liste))
-				if liste!=[]:
-					min = min(liste, key=attrgetter("_dateFinProd"))
-					self.box_manager.gestion_produit_finis(min)
-					date=min._dateFinProd
-				else:
-					stop=True
+			#for k in liste:
+				#k.affichage()
+			if liste!=[]:
+				min=liste[0]
+				for k in liste:
+					if k._dateFinProd<min._dateFinProd:
+						min=k
+				self.box_manager.gestion_produit_finis(min)
+				date=min._dateFinProd
+			else:
+				stop=True
 
 
 				""" 

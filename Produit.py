@@ -16,5 +16,5 @@ class Produit(object):
 
     def affichage(self):
         print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd)
-        self._box.affichage()
+
 

@@ -68,7 +68,6 @@ class Box_manager(object):
         box._type_pile.append(p._type)
         box._produit.append(1)
         p._box=box
-        p.affichage()
         box._numero=self._compteur_box[i]
 
     def gestion_produit_finis(self, p):
@@ -81,7 +80,7 @@ class Box_manager(object):
         self._listes_box = []     # compteur des box achetés par type
         self._listes_types_produit = []
         self._listes_types_box = []
-        self._compteur_box=0
+        self._compteur_box=[]
 
     
     

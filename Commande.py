@@ -35,4 +35,10 @@ class Commande(object):
         # Uptade de la date reelle de livraison de la commande :
         # date de fin du dernier article terminé de la commande + delais mini à attendre en stock pour la commande
     def DateEnvoieFin(self):
-        self._dateReel = self._liste_produits_finis[len(self._liste_produits_finis)-1]._dateFinProd + self._stockMin
+        max=self._liste_produits_afaire[0]
+
+        for i in self._liste_produits_afaire:
+            if i._dateFinProd>max._dateFinProd:
+                max=i
+
+        self._dateReel = max._dateFinProd + self._stockMin
