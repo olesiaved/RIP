@@ -49,7 +49,6 @@ class Production(object):
 
  # creation du fichier réponse au nom demandé et remplissage sous la forme demandée dans le sujet(detail dans le code)
     def EcritureResult(self, filename):
-
 # Création du fichier solution
         file_name = filename
         print(file_name)
@@ -93,14 +92,8 @@ class Production(object):
         self._schedule.box_manager._listes_types_produit=list_Type_produit
 
 
-
-
-
-
-
 #Lecture de l'ensemble des commandes à partir du fichier de données
 #Les commandes sont créées avec leurs caractéristiques et directement placées dans la liste de commande du scheduler
-
     def create_Commandes(self):
         list_Commande = []
         a = int(self._lecture_txt[0][0])
