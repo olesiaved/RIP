@@ -14,10 +14,8 @@ class Ligne(object):
         self.LastestProdAdded=None
 
     def affichage(self):
-        print ("Ligne", self.___numero)
+        print ("Ligne", self._numero,self.LocalDelay)
 
-        for element in self._listes_commandes:
-            element.affichage()
 
 
     def AddProdAfaire(self,i):

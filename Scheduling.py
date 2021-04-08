@@ -59,33 +59,60 @@ class Scheduling(object):
 		print("run")
 		ListTypeProd = self.box_manager._listes_types_produit
 		ListTraitementCommande = []
-
+		ListTraitementCommandeFinal = []
 		#ORDONANCEMENT DES COMMANDES EN FONCTION DE LA DATE DE LIVRAISON ATTENDUE
 
 
-		# ORDONNANCEMENT DES COMMANDES EN FONCTION DU RATIO [ taxe /  taxe durée ]
+		#ORDONNANCEMENT DES COMMANDES EN FONCTION DU RATIO [ taxe /  taxe durée ]
 
 		while (len(ListTraitementCommande) < len(self._liste_commandes)):
 			LocalVar = -1
 			minimumLoc = self._liste_commandes[0]
+			ii = None
 
 			for i in (self._liste_commandes):
+
 				if (i not in ListTraitementCommande):
 					if (LocalVar == -1):
 						minimumLoc = i
 						LocalVar = 0
 
-					if (i._penalite  <= minimumLoc._penalite ):
+					elif (i._datePrevue<= minimumLoc._datePrevue):
 						minimumLoc = i
 
-			minimumLoc.affichage()
+
+
 			ListTraitementCommande.append(minimumLoc)
 
-		#	for ii in ListTraitementCommande:
-		#		ii.
+			prixmoyendelais=0
+			somlocalprix=0
 
-		for i in ListTraitementCommande:
-			self.FastestLineGivenOrder(i, ListTypeProd)
+		for element in ListTraitementCommande:
+			somlocalprix+=i._penalite
+			#element.affichage()
+			print('\n')
+
+
+
+		prixmoyendelais = somlocalprix / len(ListTraitementCommande)
+
+
+		for ii in range(len(ListTraitementCommande)):
+			if (ListTraitementCommande[ii] not in ListTraitementCommandeFinal):
+				if (ListTraitementCommande[ii]._penalite > prixmoyendelais / 2):
+					ListTraitementCommandeFinal.append(ListTraitementCommande[ii])
+
+		for iii in range(len(ListTraitementCommande)):
+			if (ListTraitementCommande[iii] not in ListTraitementCommandeFinal):
+				if (ListTraitementCommande[iii]._penalite <= prixmoyendelais / 2):
+					ListTraitementCommandeFinal.append(ListTraitementCommande[iii])
+
+
+		for p in ListTraitementCommandeFinal:
+			#p.affichage()
+			self.FastestLineGivenOrder(p, ListTypeProd)
+
+		self.AffichageEtatLignes()
 
 	"""
 			while(len(ListTraitementCommande)<len(self._liste_commandes)):
@@ -218,21 +245,21 @@ class Scheduling(object):
 		date = 0
 		stop = False
 		min = 0
-		k = 0
+		y = 0
 		while (stop == False):
 			liste = []
 
-			"""if date>=liste_date_envoie[k]:
+			if date>=liste_date_envoie[y]:
 				print("part")
 				for b in self.box_manager._listes_box:
 					print(" box   ", b._numero, " ", b._id_commande)
 					for t in range(len(b._produit)):
 						print(b._produit[t]," ",b._type_pile[t].id ) 
 				for h in self._liste_commandes:
-					if h._dateReel==liste_date_envoie[k]:
+					if h._dateReel==liste_date_envoie[y]:
 						print( h._id, " ", h._dateReel)
 						self.box_manager.Vider_box_commande_envoye(h)
-				k = k + 1"""
+				y = y + 1
 
 			for i in self._liste_lignes:
 				liste.append(i.recherche_date_suivante(date))

@@ -41,3 +41,4 @@ class Commande(object):
                 max=i
 
         self._dateReel = max._dateFinProd + self._stockMin
+        print(self._dateReel-self._datePrevue)
