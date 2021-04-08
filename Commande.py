@@ -16,7 +16,6 @@ class Commande(object):
 
         self._list_prod = list_prod     #tableau synthèse des objets à produire: [NombreProduitTypeA, NombreProduitTypeB, NombreProduitTypeC...]
 
-        self._num_ligne : int = None     #pour la solution simpliste : 1 ligne de prod = 1 commande
 
         self._liste_produits_afaire = [] # liste d'entités objets non terminés correspondants à la commande
         #objet non terminé = date de production du produit en question non renseignée avant passage dans la ligne de prod.

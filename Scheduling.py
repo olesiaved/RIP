@@ -210,36 +210,45 @@ class Scheduling(object):
 			element.DateEnvoieFin()
 
 	def recherche_date_suivante(self):
+		liste_date_envoie=[]
+		for i in self._liste_commandes:
+			liste_date_envoie.append(i._dateReel)
+		liste_date_envoie.sort()
+
 		date = 0
 		stop = False
 		min = 0
+		k = 0
 		while (stop == False):
 			liste = []
+
+			"""if date>=liste_date_envoie[k]:
+				print("part")
+				for b in self.box_manager._listes_box:
+					print(" box   ", b._numero, " ", b._id_commande)
+					for t in range(len(b._produit)):
+						print(b._produit[t]," ",b._type_pile[t].id ) 
+				for h in self._liste_commandes:
+					if h._dateReel==liste_date_envoie[k]:
+						print( h._id, " ", h._dateReel)
+						self.box_manager.Vider_box_commande_envoye(h)
+				k = k + 1"""
+
 			for i in self._liste_lignes:
 				liste.append(i.recherche_date_suivante(date))
 				liste = list(filter(None, liste))
-					# for k in liste:
-					# k.affichage()
-				if liste != []:
-					min = liste[0]
-					for k in liste:
-						if k._dateFinProd < min._dateFinProd:
-							min = k
-					self.box_manager.gestion_produit_finis(min)
-					date = min._dateFinProd
-				else:
-					stop = True
+			if liste != []:
+				min = liste[0]
+				for k in liste:
+					if k._dateFinProd < min._dateFinProd:
+						min = k
+				self.box_manager.gestion_produit_finis(min)
 
-				""" 
-# Attribution d'un numero de box pour chaque produit
-	def numero_box_pour_produit(self):
-		self.box_manager._listes_box=[0]*len(self.box_manager._listes_types_box)
-		for i in self._liste_lignes:
-			for j in i._listes_commandes:
-				for k in j._liste_produits_finis:
-					self.box_manager.Achat_Box_Type(k)
-					
-				"""
+				date = min._dateFinProd
+			else:
+				stop = True
+
+
 
 
 

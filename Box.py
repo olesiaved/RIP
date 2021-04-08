@@ -7,7 +7,8 @@ class Box(object):
     #prochainement utile
     def ViderBox(self):
         self._id_commande=None
-        self._produit=None
+        self._produit=[]
+        self._type_pile=[]
 
 
 

@@ -43,8 +43,9 @@ class Box_manager(object):
                                 box = j
                                 box._produit[i] += 1
                                 p._box = box
-
-                if (p._type.ltype < self.calcul_place_libre(j))and (trouve==False):
+        if trouve==False:
+            for j in self._listes_box:
+                if j._id_commande == p._id_commande and p._type.ltype < self.calcul_place_libre(j)and trouve==False:
                     trouve=True
                     box=j
                     p._box=box
@@ -52,7 +53,23 @@ class Box_manager(object):
                     box._type_pile.append(p._type)
                 if trouve==True:
                     break
+        if trouve == False:
+            for j in self._listes_box:
+                if j._id_commande == None :
+                    trouve=True
+                    box=j
+                    p._box=box
+                    box._produit.append(1)
+                    box._type_pile.append(p._type)
+                    box._id_commande=p._id_commande
+                if trouve==True:
+                    break
         return box
+
+    def Vider_box_commande_envoye(self, com):
+        for i in self._listes_box:
+            if i._id_commande==com._id:
+                i.ViderBox()
 
 
 
@@ -71,9 +88,11 @@ class Box_manager(object):
         box._numero=self._compteur_box[i]
 
     def gestion_produit_finis(self, p):
+
         b=self.Available_Box_Type(p)
         if b==None:
             self.Achat_Box_Type(p)
+
 
 
     def __init__(self):

@@ -66,6 +66,7 @@ class Ligne(object):
             m[j]._dateDebutProd = date
             date = m[j]._type.p + date  # incrementation de la date
             m[j]._dateFinProd = date
+            m[j]._numligne=self._numero
             if j + 1 < len(m):  # verification de la fin de commande
                 if m[j + 1]._type.id == m[j]._type.id:
                     changer_outils = False

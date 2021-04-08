@@ -12,10 +12,11 @@ class Produit(object):
         self._id_commande = id_commande      # id commande à laquelle le produit est rattaché
         self._box=None         # numero de la box attribuée au produit
         self._type = Type_produit            # type de produit
+        self._numligne=None
         """# @AssociationMultiplicity 1"""
 
     def affichage(self):
-        print(self._type.id," ", self._dateDebutProd);
-        print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd);
+
+        print(self._type.id," ", self._dateDebutProd, " ", self._dateFinProd," ", self._numligne);
 
 
