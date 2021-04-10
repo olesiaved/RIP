@@ -174,5 +174,5 @@ class Production(object):
         k=0
         for i in range(len(self._schedule.box_manager._compteur_box)):
             k+=self._schedule.box_manager._compteur_box[i]*self._schedule.box_manager._listes_types_box[i].prix_box
-        
+
         self._cout+=k

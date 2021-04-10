@@ -237,28 +237,26 @@ class Scheduling(object):
 			element.DateEnvoieFin()
 
 	def recherche_date_suivante(self):
-		liste_date_envoie=[]
+		liste_date_envoie = []
 		for i in self._liste_commandes:
 			liste_date_envoie.append(i._dateReel)
+
 		liste_date_envoie.sort()
 
 		date = 0
 		stop = False
-		min = 0
 		y = 0
 		while (stop == False):
 			liste = []
 
-			if date>=liste_date_envoie[y]:
-				print("part")
-				for b in self.box_manager._listes_box:
-					print(" box   ", b._numero, " ", b._id_commande)
-					for t in range(len(b._produit)):
-						print(b._produit[t]," ",b._type_pile[t].id ) 
+			for o in self._liste_commandes:
+				if o._dateReel == liste_date_envoie[y]:
+					com = o
+			if date >= liste_date_envoie[y]:
 				for h in self._liste_commandes:
-					if h._dateReel==liste_date_envoie[y]:
-						print( h._id, " ", h._dateReel)
+					if h._dateReel == liste_date_envoie[y]:
 						self.box_manager.Vider_box_commande_envoye(h)
+
 				y = y + 1
 
 			for i in self._liste_lignes:
@@ -269,6 +267,7 @@ class Scheduling(object):
 				for k in liste:
 					if k._dateFinProd < min._dateFinProd:
 						min = k
+
 				self.box_manager.gestion_produit_finis(min)
 
 				date = min._dateFinProd

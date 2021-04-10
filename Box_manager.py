@@ -3,6 +3,7 @@
 from Box import Box
 from Type_box import Type_box
 from Type_produit import Type_produit
+import random
 
 #gestion attribution des box et types de box aux produits
 class Box_manager(object):
@@ -12,13 +13,23 @@ class Box_manager(object):
 # la fonction Attribution_type cherche le box le moins cher possible parmis ceux de taille superieur à la taille d'un type de produit donné
 # Par la suite le type de box déterminé est conservé dans un attribut de Type_Produit qui s'appelle type_box
 
+
     def Attribution_type(self):
         for i in self._listes_types_produit:                                          # iteration sur une liste des types de produit
-            b = self._listes_types_box[0]                                             # Un choix arbitraire d'un box
-            for j in self._listes_types_box:                                          # iteration sur une liste des types de box afin de rechercher le meilleur pour un type de produit donné
-                if i.htype<=j.hbox and i.ltype<=j.lbox and j.prix_box<b.prix_box :    # verification des conditions et comparaison des prix des box
-                    b=j
-            i.type_box=b
+            b = self._listes_types_box[0]
+            c = self._listes_types_box[0]       # Un choix arbitraire d'un box
+            for j in self._listes_types_box:
+                if i.nbEmpileMax*i.htype<=j.hbox and b.lbox<=j.lbox:
+                    b=j                                                                 # iteration sur une liste des types de box afin de rechercher le meilleur pour un type de produit donné
+            for k in self._listes_types_box:
+                if k.prix_box<c.prix_box and i.htype<=k.hbox and i.ltype<=k.lbox :                   # verification des conditions et comparaison des prix des box
+                     c=k
+            c.affichage()
+            b.affichage()
+            if c.prix_box>=b.prix_box:
+                i.type_box=b
+            else:
+                i.type_box = c
 
     def calcul_place_libre(self, box):
         long= box._type.lbox
@@ -77,9 +88,10 @@ class Box_manager(object):
 # Achat d'un box correspondant au produit
 # Incrementation du compteur des box
     def Achat_Box_Type(self, p ):
-        i=self._listes_types_box.index(p._type.type_box)
+
+        i =self._listes_types_box.index(p._type.type_box)
         self._compteur_box[i]+=1
-        box=Box(self._compteur_box[i],p._type.type_box)
+        box=Box(self._compteur_box[i],self._listes_types_box[i])
         self._listes_box.append(box)
         box._id_commande=p._id_commande
         box._type_pile.append(p._type)
