@@ -8,14 +8,12 @@ import random
 #gestion attribution des box et types de box aux produits
 class Box_manager(object):
 
-# Pour la solution triviale nous avons un produit = un box
-
 # la fonction Attribution_type cherche le box le moins cher possible parmis ceux de taille superieur à la taille d'un type de produit donné
 # Par la suite le type de box déterminé est conservé dans un attribut de Type_Produit qui s'appelle type_box
 
 
     def Attribution_type(self):
-        for i in self._listes_types_produit:                                          # iteration sur une liste des types de produit
+        for i in self._listes_types_produit:                                      # iteration sur une liste des types de produit
             b = self._listes_types_box[0]
             c = self._listes_types_box[0]       # Un choix arbitraire d'un box
             for j in self._listes_types_box:
@@ -31,6 +29,7 @@ class Box_manager(object):
             else:
                 i.type_box = c
 
+#calcul de la place libre restante dans une box compte tenu des produits déjà à l'intérieur
     def calcul_place_libre(self, box):
         long= box._type.lbox
         place_ocupee=0
