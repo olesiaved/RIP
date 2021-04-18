@@ -54,7 +54,7 @@ class Scheduling(object):
 						minimumLoc = i
 						LocalVar = 0
 
-					elif (i._datePrevue<= minimumLoc._datePrevue):
+					elif (1/((1/i._datePrevue)*(i._penalite+0.01))<= 1/((1/minimumLoc._datePrevue)*(minimumLoc._penalite+0.01))):
 						minimumLoc = i
 
 			ListTraitementCommande.append(minimumLoc)
@@ -93,12 +93,12 @@ class Scheduling(object):
 		# comparaison des couts en cas de retard de chaque commande au cout de retard moyen
 		for ii in range(len(ListTraitementCommande)):
 			if (ListTraitementCommande[ii] not in ListTraitementCommandeFinal):
-				if (ListTraitementCommande[ii]._penalite > prixmoyendelais / 2):
+				if (ListTraitementCommande[ii]._penalite > prixmoyendelais / 1):
 					ListTraitementCommandeFinal.append(ListTraitementCommande[ii])
 
 		for iii in range(len(ListTraitementCommande)):
 			if (ListTraitementCommande[iii] not in ListTraitementCommandeFinal):
-				if (ListTraitementCommande[iii]._penalite <= prixmoyendelais / 2):
+				if (ListTraitementCommande[iii]._penalite <= prixmoyendelais / 1):
 					ListTraitementCommandeFinal.append(ListTraitementCommande[iii])
 
 		# traitement de toutes les commandes dans l'ordre précédement définit par la méthode FastestLineGivenOrder détaillée par la suite
