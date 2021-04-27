@@ -40,7 +40,7 @@ class Production(object):
 
 
 
-    # Initialisation de la lecture du fichier données
+    # Initialisation de la lecture du fichier de données
     def Lecture_fichier(self,filename):
         production_list=[]
         with open(filename, newline='') as csvfile:
@@ -64,7 +64,7 @@ class Production(object):
         f.write(str(self._cout))
         f.write('\n')
 
-        # Ecriture dans le fichier sol: nombre de boxe par type
+        # Ecriture dans le fichier sol: nombre de box par type
         for i in range(len(self._schedule.box_manager._listes_types_box)):
             f.write(str(self._schedule.box_manager._listes_types_box[i].type)+" "+str(self._schedule.box_manager._compteur_box[i]))
             f.write('\n')
@@ -87,8 +87,8 @@ class Production(object):
 
 
 
-    #Lecture de l'ensemble des types de produits à partir du fichier de donnée
-    #Les types de box sont créés et placés dans la liste de type produit du box manager (lui même dans le scheduler)
+    #Lecture de l'ensemble des types de produits à partir du fichier de données
+    #Les types de produits sont créés et placés dans la liste de type produit du box manager (lui même dans le scheduler)
     def create_Type_produit(self):
         list_Type_produit=[]
         for i in range (int(self._lecture_txt[0][0])):
@@ -100,7 +100,7 @@ class Production(object):
     #Les commandes sont créées et directement placées dans la liste de commande du scheduler
     def create_Commandes(self):
 
-        # PHASE 1: création des commandes mais laissées vides jusqu'ici (en terme de produit)
+        # PHASE 1: création des commandes vides jusqu'ici (en terme de produit) + renseignement des caractéristiques
         list_Commande = []
         a = int(self._lecture_txt[0][0])
         b = int(self._lecture_txt[0][1])
@@ -114,10 +114,9 @@ class Production(object):
         self._schedule._liste_commandes = list_Commande
 
 
-        # commandes remplies ci-dessous (grâce à la création de l'ensemble des produits qui les composes)
-        # Pour une commande donnée : 1. création des des entitées produits attendus (type, taille...)
-        # 2. ajoue des produits attendus à la liste des produits à faire de la commande en question
-
+        # commandes remplies ci-dessous (grâce à la création de l'ensemble des produits qui les composent)
+        # Pour une commande donnée : 1. création des  entitées produits attendues (type, taille...)
+        # 2. ajoue des entitées créées à la liste des produits à faire de la commande en question
         for cc in range(len(self._schedule._liste_commandes)):
             for aa in range(len(self._schedule.box_manager._listes_types_produit)) :
                 for bb in range(self._schedule._liste_commandes[cc]._list_prod[aa]) :
@@ -152,7 +151,7 @@ class Production(object):
 
 
 
-    # Calcul après traitement de toutes les commandes du cout des le retard des commandes
+    # Calcul après traitement de toutes les commandes du cout des retards de commandes
     # + ajout au cout total
     def Calcul_cout_retard(self):
         k=0
@@ -161,7 +160,9 @@ class Production(object):
             k=k+abs(i._dateReel-i._datePrevue)*i._penalite
         self._cout+=k
 
-    # Calcul après traitement de toutes les commandes du cout de l'achat de toutes les boxs necessaires+ ajout au cout total
+    # Calcul après traitement de toutes les commandes du cout d'achat de toutes les boxs necessaires
+    # + ajout au cout total
+
     def Calcul_cout_box(self):
         k=0
         for i in range(len(self._schedule.box_manager._compteur_box)):

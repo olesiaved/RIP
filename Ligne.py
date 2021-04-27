@@ -18,8 +18,9 @@ class Ligne(object):
 
 
     # attribution d'un produit à la ligne de production avec prise en compte du produit précédent pour savoir si temps de set up ou non
+
     # actualisation du produit précédent
-    # action du delais de production de la ligne (temps necessaire à tout produire)
+    # actualisation du delais de production de la ligne (temps necessaire à tout produire)
     def AddProdAfaire(self,i):
         self._produits_afaire.append(i)
         if (self.LastestProdAdded == None or self.LastestProdAdded != i._type):
@@ -32,15 +33,13 @@ class Ligne(object):
 
 
 
-    # "fabrication" de l'ensemble des produits attribués à la ligne de prod (=mise à jour de la date de prod. du produit en question)
-    # "production" de l'ensemble des produits appartenant à la liste "produits à faire" de cette commande (=mise à jour de la date de prod.)
-    #
+    # "fabrication" de l'ensemble des produits attribués à la ligne de prod (=mise à jour de la date de prod. )
     def calcul_date_produit_opt (self):
         date = 0
         changer_outils = True
         m = self._produits_afaire
         for j in range(len(m)):
-            if (changer_outils == True):         # verification de la nécessité de changement d'outils
+            if (changer_outils == True):         # verification de la nécessité de changement d'outils ou non (set up)
                     date = date + m[j]._type.s
             m[j]._dateDebutProd = date
             date = m[j]._type.p + date          # incrementation de la date
@@ -53,7 +52,7 @@ class Ligne(object):
                         changer_outils = True
 
 
-
+   #
     def recherche_date_suivante(self, date):
         choix=None
         for i in self._produits_afaire:
